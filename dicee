@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() => runApp((DiceState()));
+
+class DiceState extends StatefulWidget {
+  const DiceState({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _DiceStateFace();
+  }
+}
+
+class _DiceStateFace extends State<DiceState> {
+  int LeftDiceFace = 1;
+  int RightDiceFace = 1;
+  void changeDiceFace() {
+    setState(() {
+      LeftDiceFace = Random().nextInt(6) + 1;
+      RightDiceFace = Random().nextInt(6) + 1;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            backgroundColor: Colors.red,
+            appBar: AppBar(
+              backgroundColor: Colors.red,
+              title: Text('Dice Face Display'),
+            ),
+            body: SafeArea(
+                child: Row(children: <Widget>[
+              Expanded(
+                  child: FlatButton(
+                      child: Image(
+                        image: AssetImage('asset/dice$LeftDiceFace.png'),
+                      ),
+                      onPressed: () {
+                        changeDiceFace();
+                      })),
+              Expanded(
+                  child: FlatButton(
+                      child: Image(
+                        image: AssetImage('asset/dice$RightDiceFace.png'),
+                      ),
+                      onPressed: () {
+                        changeDiceFace();
+                      }))
+            ]))));
+  }
+}
